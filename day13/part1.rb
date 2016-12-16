@@ -113,7 +113,7 @@ def make_graph(rows, cols)
   verts_by_index
 end
 
-def djikstra(verts, src, dst)
+def dijkstra(verts, src, dst)
   pq = MinHeap.new
 
   verts.each do |n|
@@ -160,4 +160,4 @@ verts = verts_by_index.reduce([]) { |memo, row| memo + row }
 src = verts_by_index[1][1]
 dst = verts_by_index[39][31]
 
-puts djikstra(verts, src, dst)
+puts dijkstra(verts, src, dst)

@@ -14,7 +14,7 @@ func toBool(s string) []bool {
 	return res
 }
 
-func stringify(s []bool) string {
+func toString(s []bool) string {
 	res := make([]byte, 0, len(s))
 	for _, b := range s {
 		if b {
@@ -75,5 +75,5 @@ func diskData(initial []bool, want int) []bool {
 }
 
 func main() {
-	fmt.Println(stringify(checksum(diskData(toBool("01111001100111011"), 35651584))))
+	fmt.Println(toString(checksum(diskData(toBool("01111001100111011"), 35651584))))
 }

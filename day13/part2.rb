@@ -43,7 +43,7 @@ def make_graph(rows, cols)
   verts_by_index
 end
 
-def djikstra(verts, src)
+def dijkstra(verts, src)
   pq = MinHeap.new
 
   verts.each do |n|
@@ -87,6 +87,6 @@ verts = verts_by_index.reduce([]) { |memo, row| memo + row }
 src = verts_by_index[1][1]
 dst = verts_by_index[39][31]
 
-djikstra(verts, src)
+dijkstra(verts, src)
 
 puts verts.select {|v| v[:distance] <= 50 }.size
