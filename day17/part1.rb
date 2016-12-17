@@ -9,9 +9,9 @@ def available_dirs(passcode, path, location)
 
   res = []
   res << 'U' if hash_dirs[0] && 0 < location[1]
-  res << 'D' if hash_dirs[1] && location[1] < 4
+  res << 'D' if hash_dirs[1] && location[1] < 3
   res << 'L' if hash_dirs[2] && 0 < location[0]
-  res << 'R' if hash_dirs[3] && location[0] < 4
+  res << 'R' if hash_dirs[3] && location[0] < 3
   res
 end
 
