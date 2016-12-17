@@ -1,7 +1,7 @@
 require 'digest'
 
 def move(location, dir)
-  res = [location[0], location[1]]
+  res = location.dup
 
   case dir
   when 'U' then res[1] -= 1
@@ -30,7 +30,6 @@ def available_dirs(passcode, path, location)
 end
 
 def verify(passcode, full_path)
-puts "verifying path (size #{full_path.size}): #{full_path}"
   location = [0, 0]
   i = 0
   while i < full_path.size do
