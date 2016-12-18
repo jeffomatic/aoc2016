@@ -184,40 +184,37 @@ final_state = State.new({
   ],
 })
 
-$final_key = final_state.serialize
-$earliest_arrival = {}
-$best_moves = 100
-$best_path = nil
+final_key = final_state.serialize
+earliest_arrival = {}
 
-def search(state, moves = 0, path = [])
-  return if moves >= $best_moves
+q = [{
+  state: initial_state,
+  moves: 0,
+  path: [],
+}]
 
-  state.next_moves.shuffle.each do |(c, f, next_state)|
-    k = next_state.serialize
-    move = [c, f]
+loop do
+  node = q.shift # BFS
 
-    if k == $final_key
-      if moves + 1 < $best_moves
-        print '.' # progress meter
-        $best_moves = moves + 1
-        $best_path = path + [move]
-      end
+  k = node[:state].serialize
 
-      next
-    end
+  if k == final_key
+    puts node[:moves]
+    puts node[:path].inspect
+    exit
+  end
 
-    if $earliest_arrival[k] && $earliest_arrival[k] <= moves
-      next
-    end
+  if earliest_arrival[k] && earliest_arrival[k] <= node[:moves]
+    next
+  end
 
-    $earliest_arrival[k] = moves
+  earliest_arrival[k] = node[:moves]
 
-    search(next_state, moves + 1, path + [move])
+  node[:state].next_moves.each do |(c, f, next_state)|
+    q << {
+      state: next_state,
+      moves: node[:moves] + 1,
+      path: node[:path].dup + [c, f],
+    }
   end
 end
-
-search(initial_state)
-
-puts
-puts $best_moves
-puts JSON.pretty_generate($best_path)
