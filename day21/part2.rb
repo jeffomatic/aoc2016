@@ -1,9 +1,9 @@
 input = File.open('./input') { |f| f.read }.strip.split("\n")
 
-s = ARGV[0] || 'abcdefgh'
+s = ARGV[0] || 'fbgdceah'
 s = s.each_char.to_a
 
-input.each do |cmd|
+input.reverse_each do |cmd|
   toks = cmd.split
   if cmd.start_with?('swap position')
     x, y = toks[2].to_i, toks[5].to_i
@@ -22,11 +22,20 @@ input.each do |cmd|
   elsif cmd.start_with?('rotate based')
     x = toks.last
     i = s.index(x)
-    rots = 1 + i + (i >= 4 ? 1 : 0)
-    s.rotate!(-rots)
+    rot = {
+      0 => 1,
+      1 => 1,
+      2 => 6,
+      3 => 2,
+      4 => 7,
+      5 => 3,
+      6 => 0,
+      7 => 4,
+    }
+    s.rotate!(rot[i])
   elsif cmd.start_with?('rotate') # left/right
     rots = toks[2].to_i
-    rots *= -1 if toks[1] == 'right'
+    rots *= -1 if toks[1] == 'left'
     s.rotate!(rots)
   elsif cmd.start_with?('reverse')
     x, y = toks[2].to_i, toks[4].to_i
@@ -36,7 +45,7 @@ input.each do |cmd|
       y -= 1
     end
   elsif cmd.start_with?('move')
-    x, y = toks[2].to_i, toks[5].to_i
+    y, x = toks[2].to_i, toks[5].to_i
     a = s[x]
     if x < y
       (x...y).each { |i| s[i] = s[i+1] }
@@ -45,7 +54,7 @@ input.each do |cmd|
     end
     s[y] = a
   else
-    raise "Unknown command: #{cmd}"
+    raise "Unknown command => #{cmd}"
   end
 end
 
