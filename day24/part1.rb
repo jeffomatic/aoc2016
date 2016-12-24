@@ -65,6 +65,7 @@ end
 loop do
   ps = pos_by_degree[1].to_a
   pos_by_degree[1] = Set.new
+  removed = false
 
   ps.each do |p|
     # Skip if this is a point of interest
@@ -76,6 +77,7 @@ loop do
     # Remove from grid
     v = grid[p[0]][p[1]]
     grid[p[0]][p[1]] = nil
+    removed = true
 
     # Unlist from neighbors
     v[:neighbors].each do |np|
@@ -88,7 +90,7 @@ loop do
   end
 
   # No change means only points of interest remain
-  break if ps.size == pos_by_degree[1].size
+  break unless removed
 end
 
 # Prune graph of isolated verts
