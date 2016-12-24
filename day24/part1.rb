@@ -188,7 +188,7 @@ min_path = nil
 min_dist = 100000000
 
 until q.empty? do
-  s = q.pop # BFS
+  s = q.pop # DFS
 
   if s[:path].size == poi_grid.size
     if min_dist > s[:dist]
