@@ -47,11 +47,11 @@ class MinHeap
 
   def push_up(i)
     loop do
-      new_i = i / 2
+      return i if i == 0
+      new_i = (i-1) / 2
       return i unless @heap[new_i][:priority] > @heap[i][:priority]
       @heap[i], @heap[new_i] = @heap[new_i], @heap[i]
       i = new_i
-      return i if i == 0
     end
   end
 
