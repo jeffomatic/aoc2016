@@ -2,8 +2,6 @@ input = File.open('./input') { |f| f.read }.strip.split("\n")
 input = input[2..-1] # remove useless lines
 
 nodes = {}
-nodes_by_size = {}
-nodes_by_used = {}
 
 input.each do |line|
   toks = line.split
